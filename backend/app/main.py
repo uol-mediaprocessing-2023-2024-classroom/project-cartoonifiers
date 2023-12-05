@@ -65,7 +65,7 @@ def download_image(image_url: str, img_path: str):
 
 # Opens the image from the given path and applies a box blur effect.
 def apply_cartoon(img_path: str):
-    imgbase = Image.open(img_path)
+    imgbase = cv2.imread(img_path)
     imgbase = cv2.cvtColor(imgbase, cv2.COLOR_BGR2RGB)
     #contrast
     lab= cv2.cvtColor(imgbase, cv2.COLOR_RGB2LAB)
