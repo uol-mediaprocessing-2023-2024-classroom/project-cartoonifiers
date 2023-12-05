@@ -78,7 +78,7 @@ def apply_cartoon(img_path: str):
     grayimg = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
     grayimg = cv2.medianBlur(grayimg, 5)
     #edge filter
-    kernel = 21 #size of kernel determined by the user. the bigger it is, the less noise we get but the image needs to be large enough to keep all basic details
+    kernel = 11 #size of kernel determined by the user. the bigger it is, the less noise we get but the image needs to be large enough to keep all basic details
     edges = cv2.adaptiveThreshold(grayimg, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, kernel, kernel)
     #color quantization
     k = 16 #k value determines the total number of colors in the image, the user will be able to change it
@@ -91,7 +91,8 @@ def apply_cartoon(img_path: str):
     #final image
     color = cv2.bilateralFilter(result, 9, 250, 250)
     cartoon = cv2.bitwise_and(color, color, mask=edges)
-    cartoon.save(img_path)
+    final = Image.fromarray(cartoon)
+    final.save(img_path)
     
 
 
