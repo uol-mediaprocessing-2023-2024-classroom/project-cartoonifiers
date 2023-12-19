@@ -35,14 +35,28 @@
                             Apply Blur
                         </button>
 
+
                         <div>
-                            <h3>Image Info:<br /></h3>
-                            <p>
-                                {{ imageInfo.name }}
-                            </p>
-                            <p>
-                                {{ imageInfo.avgColor }}
-                            </p>
+                            <div>
+                                <input type="range" id="gridsize" name="gridsize" min="3" max="21" value="9" step="2" />
+                                <label for="gridsize">CLAHE</label>
+                            </div>
+                            <div>
+                                <input type="range" id="edge" name="edge" min="5" max="33" value="15" step="2" />
+                                <label for="edge">Edge</label>
+                            </div>
+                            <div>
+                                <input type="range" id="k" name="k" min="8" max="128" value="16" step="8" />
+                                <label for="k">Colors</label>
+                            </div>
+                            <div>
+                                <input type="range" id="iterations" name="iterations" min="1" max="10" value="5" step="1" />
+                                <label for="iterations">Iterations</label>
+                            </div>
+                            <div>
+                                <input type="range" id="bilateral" name="bilateral" min="5" max="21" value="9" step="2" />
+                                <label for="bilateral">Bilateral</label>
+                            </div>
                         </div>
                     </div>
                 </div>

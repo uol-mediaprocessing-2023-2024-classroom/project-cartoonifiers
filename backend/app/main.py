@@ -90,7 +90,7 @@ def apply_cartoon(img_path: str):
     result = center[label.flatten()]
     result = result.reshape(img.shape)
     #final image
-    color = cv2.bilateralFilter(result, 9, 250, 250)
+    color = cv2.bilateralFilter(result, 9, 250, 250) #can change the kernel size for this filter
     cartoon = cv2.bitwise_and(color, color, mask=edges)
     final = Image.fromarray(cartoon)
     final.save(img_path)
