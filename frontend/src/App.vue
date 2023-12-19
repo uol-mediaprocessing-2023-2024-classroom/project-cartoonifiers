@@ -107,9 +107,9 @@ export default {
         },
 
         /* This method retrieves a blurred version of the selected image from the backend. */
-        async getBlur(selectedId, cldId) {
+        async getCartoon(selectedId, cldId) {
 
-            const localUrl = `http://127.0.0.1:8000/get-blur/${cldId}/${selectedId}`;
+            const localUrl = `http://127.0.0.1:8000/get-cartoon/${cldId}/${selectedId}`;
 
             // Fetch the blurred image
             const response = await fetch(localUrl);

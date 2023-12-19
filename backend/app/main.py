@@ -40,8 +40,8 @@ def home():
     return {"Test": "Online"}
 
 
-@app.get("/get-blur/{cldId}/{imgId}")
-async def get_blur(cldId: str, imgId: str, background_tasks: BackgroundTasks):
+@app.get("/get-cartoon/{cldId}/{imgId}")
+async def get_cartoon(cldId: str, imgId: str, background_tasks: BackgroundTasks):
     
     ### rename to get_cartoon later, could cause issues with frontend call ###
     
