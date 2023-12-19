@@ -84,7 +84,8 @@ def apply_cartoon(img_path: str):
     k = 16 #k value determines the total number of colors in the image, the user will be able to change it
     data = np.float32(img).reshape((-1, 3))
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 20, 0.001)
-    ret, label, center = cv2.kmeans(data, k, None, criteria, 5, cv2.KMEANS_RANDOM_CENTERS)
+    iterations = 5 #number of times kmeans are computed /!\ adds enormous delay /!\
+    ret, label, center = cv2.kmeans(data, k, None, criteria, iterations, cv2.KMEANS_RANDOM_CENTERS)
     center = np.uint8(center)
     result = center[label.flatten()]
     result = result.reshape(img.shape)
