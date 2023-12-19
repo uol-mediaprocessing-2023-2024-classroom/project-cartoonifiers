@@ -38,24 +38,26 @@
 
                         <div>
                             <div>
-                                <input type="range" id="gridsize" name="gridsize" min="3" max="21" value="9" step="2" />
-                                <label for="gridsize">CLAHE: <span id="demoGrid"></span></label>
+                                <v-slider label="CLAHE" v-model="sliderGrid" min="3" max="21" step="2"></v-slider>
                             </div>
                             <div>
-                                <input type="range" id="edge" name="edge" min="5" max="33" value="15" step="2" />
-                                <label for="edge">Edge: <span id="demoEdge"></span></label>
+                                <v-slider label="Edge" v-model="sliderEdge" min="5" max="33" step="2"></v-slider>
                             </div>
                             <div>
-                                <input type="range" id="k" name="k" min="8" max="128" value="16" step="8" />
-                                <label for="k">Colors: <span id="demoK"></span></label>
+                                <v-slider label="Colors" v-model="sliderK" min="8" max="128" step="8"></v-slider>
                             </div>
                             <div>
-                                <input type="range" id="iterations" name="iterations" min="1" max="10" value="5" step="1" />
-                                <label for="iterations">Iterations: <span id="demoIter"></span></label>
+                                <v-slider label="Iterations" v-model="sliderIter" min="1" max="10" step="1"></v-slider>
                             </div>
                             <div>
-                                <input type="range" id="bilateral" name="bilateral" min="5" max="21" value="9" step="2" />
-                                <label for="bilateral">Bilateral: <span id="demoBila"></span></label>
+                                <v-slider label="Bilateral" v-model="sliderBila" min="5" max="21" step="2"></v-slider>
+                            </div>
+                            <div>
+                                <v-col>CLAHE value: {{ sliderGrid }}</v-col>
+                                <v-col>Edge value: {{ sliderEdge }}</v-col>
+                                <v-col>Colors value: {{ sliderK }}</v-col>
+                                <v-col>Iter value: {{ sliderIter }}</v-col>
+                                <v-col>Bila value: {{ sliderBila }}</v-col>
                             </div>
                         </div>
                     </div>
@@ -83,41 +85,6 @@
 </template>
 
 <script>
-
-var sliderGrid = document.getElementById("gridsize");
-var sliderEdge = document.getElementById("edge");
-var sliderK = document.getElementById("k");
-var sliderIter = document.getElementById("iterations");
-var sliderBila = document.getElementById("bilateral");
-
-var outputGrid = document.getElementById("demoGrid");
-var outputEdge = document.getElementById("demoEdge");
-var outputK = document.getElementById("demoK");
-var outputIter = document.getElementById("demoIter");
-var outputBila = document.getElementById("demoBila");
-
-outputGrid.innerHTML = sliderGrid.value
-outputEdge.innerHTML = sliderEdge.value
-outputK.innerHTML = sliderK.value
-outputIter.innerHTML = sliderIter.value
-outputBila.innerHTML = sliderBila.value
-
-sliderGrid.oninput = function() {
-  outputGrid.innerHTML = this.value;
-}
-sliderEdge.oninput = function() {
-  outputEdge.innerHTML = this.value;
-}
-sliderK.oninput = function() {
-  outputK.innerHTML = this.value;
-}
-sliderIter.oninput = function() {
-  outputIter.innerHTML = this.value;
-}
-sliderBila.oninput = function() {
-  outputBila.innerHTML = this.value;
-}
-
 export default {
     name: "HomePage",
 
@@ -141,6 +108,11 @@ export default {
 
             // UI related
             loginButtonText: "LOGIN",
+            sliderGrid:9,
+            sliderEdge:15,
+            sliderK:16,
+            sliderIter:5,
+            sliderBila:9,
         };
     },
 
