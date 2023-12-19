@@ -39,23 +39,23 @@
                         <div>
                             <div>
                                 <input type="range" id="gridsize" name="gridsize" min="3" max="21" value="9" step="2" />
-                                <label for="gridsize">CLAHE</label>
+                                <label for="gridsize">CLAHE: <span id="demoGrid"></span></label>
                             </div>
                             <div>
                                 <input type="range" id="edge" name="edge" min="5" max="33" value="15" step="2" />
-                                <label for="edge">Edge</label>
+                                <label for="edge">Edge: <span id="demoEdge"></span></label>
                             </div>
                             <div>
                                 <input type="range" id="k" name="k" min="8" max="128" value="16" step="8" />
-                                <label for="k">Colors</label>
+                                <label for="k">Colors: <span id="demoK"></span></label>
                             </div>
                             <div>
                                 <input type="range" id="iterations" name="iterations" min="1" max="10" value="5" step="1" />
-                                <label for="iterations">Iterations</label>
+                                <label for="iterations">Iterations: <span id="demoIter"></span></label>
                             </div>
                             <div>
                                 <input type="range" id="bilateral" name="bilateral" min="5" max="21" value="9" step="2" />
-                                <label for="bilateral">Bilateral</label>
+                                <label for="bilateral">Bilateral: <span id="demoBila"></span></label>
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,41 @@
 </template>
 
 <script>
+
+var sliderGrid = document.getElementById("gridsize");
+var sliderEdge = document.getElementById("edge");
+var sliderK = document.getElementById("k");
+var sliderIter = document.getElementById("iterations");
+var sliderBila = document.getElementById("bilateral");
+
+var outputGrid = document.getElementById("demoGrid");
+var outputEdge = document.getElementById("demoEdge");
+var outputK = document.getElementById("demoK");
+var outputIter = document.getElementById("demoIter");
+var outputBila = document.getElementById("demoBila");
+
+outputGrid.innerHTML = sliderGrid.value
+outputEdge.innerHTML = sliderEdge.value
+outputK.innerHTML = sliderK.value
+outputIter.innerHTML = sliderIter.value
+outputBila.innerHTML = sliderBila.value
+
+sliderGrid.oninput = function() {
+  outputGrid.innerHTML = this.value;
+}
+sliderEdge.oninput = function() {
+  outputEdge.innerHTML = this.value;
+}
+sliderK.oninput = function() {
+  outputK.innerHTML = this.value;
+}
+sliderIter.oninput = function() {
+  outputIter.innerHTML = this.value;
+}
+sliderBila.oninput = function() {
+  outputBila.innerHTML = this.value;
+}
+
 export default {
     name: "HomePage",
 
