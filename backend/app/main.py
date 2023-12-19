@@ -42,9 +42,9 @@ def home():
 
 @app.get("/get-blur/{cldId}/{imgId}")
 async def get_blur(cldId: str, imgId: str, background_tasks: BackgroundTasks):
-    """
-    rename to get_cartoon later, could cause issues with frontend call
-    """
+    
+    ### rename to get_cartoon later, could cause issues with frontend call ###
+    
     img_path = f"app/bib/{imgId}.jpg"
     image_url = f"https://cmp.photoprintit.com/api/photos/{imgId}.org?size=original&errorImage=false&cldId={cldId}&clientVersion=0.0.1-medienVerDemo"
 

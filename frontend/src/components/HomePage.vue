@@ -31,7 +31,7 @@
                             Load Images
                         </button>
 
-                        <button class="basicButton" @click="getBlur(selectedImage.id)">
+                        <button class="basicButton" @click="getCartoon(selectedImage.id)">
                             Apply Blur
                         </button>
 
@@ -115,8 +115,8 @@ export default {
         },
 
         // Emit a getBlur event with the ID of the selected image.
-        getBlur(selectedId) {
-            this.$emit("getBlur", selectedId, this.cldId);
+        getCartoon(selectedId) {
+            this.$emit("getCartoon", selectedId, this.cldId);
         },
 
         // --- AUTHENTICATION RELATED METHODS ---
