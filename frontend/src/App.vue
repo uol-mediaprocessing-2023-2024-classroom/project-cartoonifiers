@@ -4,7 +4,7 @@
             <!-- Communication between child and parent components can be done using props and events. Props are attributes passed from a parent to a child and can be used within it.
             A child component can emit events, which the parent then may react to. Here "selectedImage" is a prop passed to HomePage. HomePage emits the "fetchImgs" event,
             which triggers the fetchImgs method in App.vue. In this demo this is technically not needed, but since it's a core element of Vue I decided to include it.-->
-            <HomePage :selectedImage="selectedImage" :currentGallery="currentGallery" @loadImages="loadImages" @updateSelected="updateSelected" @getBlur="getBlur" @resetGallery="resetGallery" />
+            <HomePage :selectedImage="selectedImage" :currentGallery="currentGallery" @loadImages="loadImages" @updateSelected="updateSelected" @getCartoon="getCartoon" @resetGallery="resetGallery" />
         </v-main>
     </v-app>
 </template>
@@ -29,7 +29,8 @@ export default {
             currentGallery: [],
             allImgData: [],
             limit: 60,
-            loadedAmount: 0
+            loadedAmount: 0,
+            isCartoonProcessing: false,
         };
     },
 
@@ -101,9 +102,10 @@ export default {
         },
 
         /* This method retrieves a blurred version of the selected image from the backend. */
-        async getBlur(selectedId, cldId) {
+        async getCartoon(selectedId, cldId) {
+            this.isCartoonProcessing = true;
 
-            const localUrl = `http://127.0.0.1:8000/get-blur/${cldId}/${selectedId}`;
+            const localUrl = `http://127.0.0.1:8000/get-cartoon/${cldId}/${selectedId}`;
 
             // Fetch the blurred image
             const response = await fetch(localUrl);
@@ -112,6 +114,8 @@ export default {
 
             // Update the selected image with the URL of the blurred image
             this.selectedImage.url = blurImgUrl;
+
+            this.isCartoonProcessing = false;
         },
 
         /* This method resets the current gallery and selected image. */
