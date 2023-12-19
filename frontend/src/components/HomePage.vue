@@ -32,32 +32,25 @@
                         </button>
 
                         <button class="basicButton" @click="getCartoon(selectedImage.id)">
-                            Apply Blur
+                            Apply Cartoon
                         </button>
 
 
                         <div>
                             <div>
-                                <v-slider label="CLAHE" v-model="sliderGrid" min="3" max="21" step="2"></v-slider>
+                                <v-slider label="Contrast" v-model="sliderGrid" min="3" max="21" step="2" thumb-label></v-slider>
                             </div>
                             <div>
-                                <v-slider label="Edge" v-model="sliderEdge" min="5" max="33" step="2"></v-slider>
+                                <v-slider label="Edges" v-model="sliderEdge" min="5" max="33" step="2" thumb-label></v-slider>
                             </div>
                             <div>
-                                <v-slider label="Colors" v-model="sliderK" min="8" max="128" step="8"></v-slider>
+                                <v-slider label="Colors" v-model="sliderK" min="8" max="128" step="8" thumb-label></v-slider>
                             </div>
                             <div>
-                                <v-slider label="Iterations" v-model="sliderIter" min="1" max="10" step="1"></v-slider>
+                                <v-slider label="Sharpness" v-model="sliderBila" min="5" max="21" step="2" thumb-label></v-slider>
                             </div>
                             <div>
-                                <v-slider label="Bilateral" v-model="sliderBila" min="5" max="21" step="2"></v-slider>
-                            </div>
-                            <div>
-                                <v-col>CLAHE value: {{ sliderGrid }}</v-col>
-                                <v-col>Edge value: {{ sliderEdge }}</v-col>
-                                <v-col>Colors value: {{ sliderK }}</v-col>
-                                <v-col>Iter value: {{ sliderIter }}</v-col>
-                                <v-col>Bila value: {{ sliderBila }}</v-col>
+                                <v-slider label="Iterations" v-model="sliderIter" min="1" max="10" step="1" thumb-label></v-slider>
                             </div>
                         </div>
                     </div>
@@ -137,7 +130,8 @@ export default {
 
         // Emit a getBlur event with the ID of the selected image.
         getCartoon(selectedId) {
-            this.$emit("getCartoon", selectedId, this.cldId);
+            var sliderValues = "["+this.sliderGrid+","+this.sliderEdge+","+this.sliderK+","+this.sliderIter+","+this.sliderBila+"]";
+            this.$emit("getCartoon", selectedId, this.cldId, sliderValues);
         },
 
         // --- AUTHENTICATION RELATED METHODS ---
