@@ -46,17 +46,18 @@ async def get_cartoon(cldId: str, imgId: str,sliderValues: str, background_tasks
     
     img_path = f"app/bib/{imgId}.jpg"
     image_url = f"https://cmp.photoprintit.com/api/photos/{imgId}.org?size=original&errorImage=false&cldId={cldId}&clientVersion=0.0.1-medienVerDemo"
+    img_path_final = f"app/bib/temp.jpg"
     
     #values = np.array(literal_eval(sliderValues))
 
     download_image(image_url, img_path)
-    apply_cartoon(img_path, sliderValues)
+    apply_cartoon(img_path, sliderValues, img_path_final)
 
     # Schedule the image file to be deleted after the response is sent
     background_tasks.add_task(remove_file, img_path)
 
     # Send the blurred image file as a response
-    return FileResponse(img_path)
+    return FileResponse(img_path_final)
 
 
 # Downloads an image from the specified URL and saves it to the given path.
@@ -65,7 +66,7 @@ def download_image(image_url: str, img_path: str):
 
 
 # Opens the image from the given path and applies a box blur effect.
-def apply_cartoon(img_path: str, sliderValues):
+def apply_cartoon(img_path: str, sliderValues, img_path_final):
     #load values and convert string to numpy array
     values = np.array(literal_eval(sliderValues))
     #load image
@@ -94,7 +95,7 @@ def apply_cartoon(img_path: str, sliderValues):
     color = cv2.bilateralFilter(result, values[4], 250, 250) #can change the kernel size for this filter
     cartoon = cv2.bitwise_and(color, color, mask=edges)
     final = Image.fromarray(cartoon)
-    final.save(img_path)
+    final.save(img_path_final)
     
 
 
