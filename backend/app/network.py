@@ -1,8 +1,8 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import numpy as np
-import tensorflow.contrib.slim as slim
+import tf_slim as slim
 
-
+tf.disable_v2_behavior()
 
 def resblock(inputs, out_channel=32, name='resblock'):
     
@@ -19,7 +19,7 @@ def resblock(inputs, out_channel=32, name='resblock'):
 
 
 
-def unet_generator(inputs, channel=32, num_blocks=4, name='generator', reuse=False):
+def unet_generator(inputs, channel=32, num_blocks=4, name='generator', reuse=tf.AUTO_REUSE):
     with tf.variable_scope(name, reuse=reuse):
         
         x0 = slim.convolution2d(inputs, channel, [7, 7], activation_fn=None)

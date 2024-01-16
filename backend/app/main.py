@@ -46,7 +46,6 @@ def home():
 
 @app.get("/get-cartoon/{cldId}/{imgId}/{sliderValues}")
 async def get_cartoon(cldId: str, imgId: str,sliderValues: str, background_tasks: BackgroundTasks):    
-    
     img_path = f"app/bib/{imgId}.jpg"
     image_url = f"https://cmp.photoprintit.com/api/photos/{imgId}.org?size=original&errorImage=false&cldId={cldId}&clientVersion=0.0.1-medienVerDemo"
     img_path_final = f"app/bib/temp.jpg"
@@ -64,15 +63,18 @@ async def get_cartoon(cldId: str, imgId: str,sliderValues: str, background_tasks
 
 @app.get("/cartoon-ai/{cldId}/{imgId}")
 async def cartoonAI(cldId: str, imgId: str, background_tasks: BackgroundTasks):
-    img_path = f"app/bib/{imgId}.jpg"
+    input_folder_path = "app/test_images"
+    output_folder_path = "app/bib"
+    img_path = f"app/test_images/{imgId}.jpg"
     image_url = f"https://cmp.photoprintit.com/api/photos/{imgId}.org?size=original&errorImage=false&cldId={cldId}&clientVersion=0.0.1-medienVerDemo"
-    img_path_final = f"app/bib/temp.jpg"
+    img_path_final = f"app/bib/{imgId}.jpg"
     
     download_image(image_url, img_path)
-    apply_ai(img_path,img_path_final)
+    apply_ai(input_folder_path,output_folder_path)
     
     # Schedule the image file to be deleted after the response is sent
     background_tasks.add_task(remove_file, img_path)
+    #test
 
     # Send the blurred image file as a response
     return FileResponse(img_path_final)

@@ -1,12 +1,12 @@
 import os
 import cv2
 import numpy as np
-import tensorflow as tf 
-import network
-import guided_filter
+import tensorflow.compat.v1 as tf 
+from app import network
+from app import guided_filter
 from tqdm import tqdm
 
-
+tf.disable_v2_behavior()
 
 def resize_crop(image):
     h, w, c = np.shape(image)
