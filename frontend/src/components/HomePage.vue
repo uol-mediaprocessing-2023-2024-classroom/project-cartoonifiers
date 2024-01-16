@@ -30,9 +30,11 @@
                 <div class="selectedImageInfo">
                     <h2>Selected Image: <br /></h2>
                 </div>
-
+                <div v-if="loading">Loading some data</div>
                 <div style="display: flex">
+                    <div id="loadingOverlay">Loading...</div>
                     <img class="selectedImg" v-bind:src="selectedImage.url" />
+                    
                     <div class="inputField">
                         <!-- Simple button that calls the method 'loadImages' -->
                         <button class="basicButton" @click="loadImages(cldId)">
@@ -50,7 +52,8 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                
+            </div>
             </div>
         </div>
 
@@ -328,6 +331,7 @@ h1 {
 }
 
 .selectedImageField {
+    position: relative;
     display: flex;
     flex-direction: row;
     background-color: rgb(249, 251, 255);
@@ -408,4 +412,42 @@ h1 {
     align-self: center;
     margin-top: 10px;
 }
+
+.loading-container {
+    position: relative;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -25px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+  display: none; /* Initially hide the loading overlay */
+}
+
 </style>
