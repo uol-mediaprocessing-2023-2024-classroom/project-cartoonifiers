@@ -11,6 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from PIL import Image, ImageFilter
 
+from app import cartoonize
+from app import guided_filter
+from app import network
 
 app = FastAPI()
 
@@ -59,6 +62,20 @@ async def get_cartoon(cldId: str, imgId: str,sliderValues: str, background_tasks
     # Send the blurred image file as a response
     return FileResponse(img_path_final)
 
+@app.get("/cartoon-ai/{cldId}/{imgId}")
+async def cartoonAI(cldId: str, imgId: str, background_tasks: BackgroundTasks):
+    img_path = f"app/bib/{imgId}.jpg"
+    image_url = f"https://cmp.photoprintit.com/api/photos/{imgId}.org?size=original&errorImage=false&cldId={cldId}&clientVersion=0.0.1-medienVerDemo"
+    img_path_final = f"app/bib/temp.jpg"
+    
+    download_image(image_url, img_path)
+    apply_ai(img_path,img_path_final)
+    
+    # Schedule the image file to be deleted after the response is sent
+    background_tasks.add_task(remove_file, img_path)
+
+    # Send the blurred image file as a response
+    return FileResponse(img_path_final)
 
 # Downloads an image from the specified URL and saves it to the given path.
 def download_image(image_url: str, img_path: str):
@@ -97,7 +114,9 @@ def apply_cartoon(img_path: str, sliderValues, img_path_final):
     final = Image.fromarray(cartoon)
     final.save(img_path_final)
     
-
+def apply_ai(img_path: str, img_path_final):
+    cartoonize.cartoonize(img_path, img_path_final, 'app/saved_models')
+    
 
 # Deletes the file at the specified path.
 def remove_file(path: str):

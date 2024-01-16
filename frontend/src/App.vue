@@ -120,6 +120,18 @@ export default {
             this.selectedImage.url = blurImgUrl;
         },
 
+        async cartoonAI(selectedId, cldId){
+            const localUrl = `http://127.0.0.1:8000/cartoon-ai/${cldId}/${selectedId}`;
+
+            // Fetch the blurred image
+            const response = await fetch(localUrl);
+            const imageBlob = await response.blob();
+            const blurImgUrl = URL.createObjectURL(imageBlob);
+
+            // Update the selected image with the URL of the blurred image
+            this.selectedImage.url = blurImgUrl;
+        },
+
         /* This method resets the current gallery and selected image. */
         resetGallery() {
 

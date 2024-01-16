@@ -35,6 +35,10 @@
                             Apply Cartoon
                         </button>
 
+                        <button class="basicButton" @click="cartoonAI(selectedImage.id)">
+                            Use AI
+                        </button>
+
 
                         <div>
                             <div>
@@ -132,6 +136,10 @@ export default {
         getCartoon(selectedId) {
             var sliderValues = "["+this.sliderGrid+","+this.sliderEdge+","+this.sliderK+","+this.sliderIter+","+this.sliderBila+"]";
             this.$emit("getCartoon", selectedId, this.cldId, sliderValues);
+        },
+
+        cartoonAI(selectedId){
+            this.$emit("cartoonAI", selectedId, this.cldId);
         },
 
         // --- AUTHENTICATION RELATED METHODS ---
