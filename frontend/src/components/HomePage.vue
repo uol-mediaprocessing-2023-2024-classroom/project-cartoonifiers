@@ -26,37 +26,42 @@
                         </div>
                     </v-btn>
                 </div>
-
                 <div class="selectedImageInfo">
                     <h2>Selected Image: <br /></h2>
                 </div>
-                <div v-if="loading">Loading some data</div>
                 <div style="display: flex">
                     <div id="loadingOverlay">Loading...</div>
                     <img class="selectedImg" v-bind:src="selectedImage.url" />
-                    
                     <div class="inputField">
                         <!-- Simple button that calls the method 'loadImages' -->
                         <button class="basicButton" @click="loadImages(cldId)">
                             Load Images
                         </button>
-
                         <button class="basicButton" @click="getCartoon(selectedImage.id)">
                             Cartoonify!
                         </button>
-
                         <div>
-                            <h3>Image Info:<br /></h3>
-                            <p>
-                                {{ imageInfo.name }}
-                            </p>
+                            <h3>{{ imageInfo.name }}<br /></h3>
                         </div>
+                        <div>
+                                <v-slider label="Contrast" v-model="sliderGrid" min="3" max="21" step="2" thumb-label></v-slider>
+                            </div>
+                            <div>
+                                <v-slider label="Edges" v-model="sliderEdge" min="5" max="33" step="2" thumb-label></v-slider>
+                            </div>
+                            <div>
+                                <v-slider label="Colors" v-model="sliderK" min="8" max="128" step="8" thumb-label></v-slider>
+                            </div>
+                            <div>
+                                <v-slider label="Sharpness" v-model="sliderBila" min="5" max="21" step="2" thumb-label></v-slider>
+                            </div>
+                            <div>
+                                <v-slider label="Iterations" v-model="sliderIter" min="1" max="10" step="1" thumb-label></v-slider>
+                            </div>
                     </div>
-                
-            </div>
+                </div>
             </div>
         </div>
-
         <div class="imageGalleryField">
             <div>
                 <v-row>
@@ -95,10 +100,16 @@ export default {
             // Image related data
             imageInfo: {
                 name: "",
+                avgColor: ""
             },
 
             // UI related
             loginButtonText: "LOGIN",
+            sliderGrid:9,
+            sliderEdge:15,
+            sliderK:16,
+            sliderIter:5,
+            sliderBila:9,
         };
     },
 
@@ -123,8 +134,8 @@ export default {
 
         // Emit a getCartoon event with the ID of the selected image.
         getCartoon(selectedId) {
-    // Assuming performCartoonify returns an object with a 'url' property
-    this.$emit ("getCartoon",selectedId,this.cldId);
+            var sliderValues = "["+this.sliderGrid+","+this.sliderEdge+","+this.sliderK+","+this.sliderIter+","+this.sliderBila+"]";
+            this.$emit("getCartoon", selectedId, this.cldId, sliderValues);
         },
 
         // --- AUTHENTICATION RELATED METHODS ---
@@ -285,6 +296,7 @@ export default {
         selectedImage: function () {
             this.imageInfo = {
                 name: "Name: " + this.selectedImage.name,
+                avgColor: "Average color: " + this.selectedImage.avgColor,
             };
         },
 
@@ -411,10 +423,6 @@ h1 {
     width: 100px;
     align-self: center;
     margin-top: 10px;
-}
-
-.loading-container {
-    position: relative;
 }
 
 .loader {

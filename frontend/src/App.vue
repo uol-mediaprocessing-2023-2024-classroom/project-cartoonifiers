@@ -31,8 +31,6 @@ export default {
             allImgData: [],
             limit: 60,
             loadedAmount: 0,
-
-            loading: false,
         };
     },
 
@@ -105,8 +103,8 @@ export default {
         },
 
         /* This method retrieves a blurred version of the selected image from the backend. */
-        async getCartoon(selectedId, cldId) {
-    const localUrl = `http://127.0.0.1:8000/get-cartoon/${cldId}/${selectedId}`;
+        async getCartoon(selectedId, cldId, sliderValues) {
+    const localUrl = `http://127.0.0.1:8000/get-cartoon/${cldId}/${selectedId}/${sliderValues}`;
 
     // Show the loader before fetching the blurred image
     this.loading = true;
