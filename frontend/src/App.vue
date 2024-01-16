@@ -10,6 +10,7 @@
                 @loadImages="loadImages" 
                 @updateSelected="updateSelected" 
                 @getCartoon="getCartoon" 
+                @cartoonAI="cartoonAI"
                 @resetGallery="resetGallery" />
         </v-main>
     </v-app>
