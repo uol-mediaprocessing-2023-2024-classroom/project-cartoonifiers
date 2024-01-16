@@ -4,7 +4,7 @@
             <!-- Communication between child and parent components can be done using props and events. Props are attributes passed from a parent to a child and can be used within it.
             A child component can emit events, which the parent then may react to. Here "selectedImage" is a prop passed to HomePage. HomePage emits the "fetchImgs" event,
             which triggers the fetchImgs method in App.vue. In this demo this is technically not needed, but since it's a core element of Vue I decided to include it.-->
-            <HomePage :selectedImage="selectedImage" :currentGallery="currentGallery" @loadImages="loadImages" @updateSelected="updateSelected" @getBlur="getBlur" @resetGallery="resetGallery" />
+            <HomePage :selectedImage="selectedImage" :currentGallery="currentGallery" @loadImages="loadImages" @updateSelected="updateSelected" @getCartoon="getCartoon" @cartoonAI="cartoonAI" @resetGallery="resetGallery" />
         </v-main>
     </v-app>
 </template>
@@ -12,6 +12,7 @@
 <script>
 import HomePage from "./components/HomePage";
 import placeholder from "./assets/placeholder.jpg";
+
 
 export default {
     name: "App",
@@ -29,7 +30,7 @@ export default {
             currentGallery: [],
             allImgData: [],
             limit: 60,
-            loadedAmount: 0
+            loadedAmount: 0,
         };
     },
 
@@ -39,6 +40,7 @@ export default {
           This method fetches the first 60 images from a user's gallery. 
           It first retrieves all image IDs, then it fetches specific image data. 
         */
+
         async loadImages(cldId) {
 
             const headers = {
@@ -101,9 +103,33 @@ export default {
         },
 
         /* This method retrieves a blurred version of the selected image from the backend. */
-        async getBlur(selectedId, cldId) {
+        async getCartoon(selectedId, cldId, sliderValues) {
+            const localUrl = `http://127.0.0.1:8000/get-cartoon/${cldId}/${selectedId}/${sliderValues}`;
 
-            const localUrl = `http://127.0.0.1:8000/get-blur/${cldId}/${selectedId}`;
+            // Show the loader before fetching the blurred image
+            this.loading = true;
+            document.getElementById('loadingOverlay').style.display = 'flex';
+                try{
+            // Fetch the blurred image
+                const response = await fetch(localUrl);
+                const imageBlob = await response.blob();
+                const blurImgUrl = URL.createObjectURL(imageBlob);
+
+                this.selectedImage.url = blurImgUrl;}
+            finally {
+            // Hide the loading overlay after the image is loaded or an error occurs
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+                // Update the selected image with the URL of the blurred image
+                this.selectedImage.url = blurImgUrl;
+                setTimeout(() => {
+                this.loading = false;
+                }, 5000)
+        },
+
+        async cartoonAI(selectedId, cldId){
+            const localUrl = `http://127.0.0.1:8000/cartoon-ai/${cldId}/${selectedId}`;
 
             // Fetch the blurred image
             const response = await fetch(localUrl);
