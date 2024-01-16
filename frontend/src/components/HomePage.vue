@@ -40,7 +40,7 @@
                         <button class="basicButton" @click="getCartoon(selectedImage.id)">
                             Cartoonify!
                         </button>
-                        <button class="basicButton" @click="cartoonIA(selectedImage.id)">
+                        <button class="basicButton" @click="cartoonAI(selectedImage.id)">
                             Cartoonif-AI!
                         </button>
                         <div>
